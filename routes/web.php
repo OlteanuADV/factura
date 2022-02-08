@@ -8,7 +8,7 @@ use App\Http\Controllers\ANAF;
 use App\Http\Controllers\SEAP;
 
 
-Route::prefix('/api')->group(function() { //middleware('OnlyJSON')->
+Route::middleware('OnlyJSON')->prefix('/api')->group(function() {
     Route::get('/', [API::class, 'index']);
 
     Route::prefix('/anaf')->group(function() {
@@ -22,9 +22,15 @@ Route::prefix('/api')->group(function() { //middleware('OnlyJSON')->
 
     Route::prefix('/company')->group(function() {
         Route::post('/create', [API::class, 'companyCreate']);
+        Route::get('/select/{id}', [API::class, 'companySelect']);
     });
-    
-    Route::post('/login', [API::class, 'login']);
+
+    Route::get('/checkLoginGoogle/{token}', [API::class, 'checkLoginGoogle'])->middleware('guest');
 });
 
-Route::get('/{any}', [Pages::class, 'home'])->where('any', '^(?!api).*$')->name('home');
+Route::get('/logout', function() {
+    Auth::logout();
+    return redirect('/');
+});
+
+Route::get('/{any}', [Pages::class, 'home'])->where('any', '^(?!api).*$')->where('any', '^(?!logout).*$')->name('home');

@@ -42,9 +42,9 @@ class ANAF extends Controller
         curl_close($curl);
 
         if($response)
-    $firma['date'] = $response->found[0];
+        $firma['date'] = $response->found[0];
 
-        return json_encode($firma['date']);
+        return $firma['date'];
     }
 
     public function search_advanced($cui) {
@@ -83,6 +83,6 @@ class ANAF extends Controller
         curl_close($curl);
         $firma['bilant'] = json_decode($response);
         
-        return json_encode($firma); 
+        return $firma; 
     }
 }

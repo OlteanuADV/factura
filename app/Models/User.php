@@ -30,4 +30,12 @@ class User extends Authenticatable
     ];
 
     public $timestamps = true;
+
+    public function companies() {
+        return $this->hasMany('App\Models\Companies', 'owner');
+    }
+
+    public function company() {
+        return $this->hasOne('App\Models\Companies', 'id', 'last_company');
+    }
 }
