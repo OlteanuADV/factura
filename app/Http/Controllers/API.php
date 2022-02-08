@@ -17,7 +17,8 @@ class API extends Controller
                 'user' => Auth::user(),
             ],
             '_token' => csrf_token(),
-            'url' => url('/')
+            'url' => url('/'),
+            'name' => config('app.name')
         ];
         return $adv;
     }
@@ -47,5 +48,14 @@ class API extends Controller
             'success'   => 1,
             'message'   => 'Felicitari, v-ati conectat cu succes, va rugam asteptati.'
         ];
+    }
+
+    public function logout() {
+        Auth::logout();
+        redirect('/');
+    }
+
+    public function companyCreate(Request $request) {
+        return $request->all();
     }
 }

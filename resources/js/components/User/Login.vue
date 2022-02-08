@@ -63,8 +63,6 @@ export default {
        
    },
    mounted(){
-      let t = this;
-      axios.get(t.$root.$data.adv.url + '/api/login');
    },
    methods: {
       login: function(e) {

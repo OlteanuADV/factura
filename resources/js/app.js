@@ -7,8 +7,10 @@ Vue.component('app-view', require('./components/App.vue').default);
 
 
 //pages
+import Index from './components/Index.vue';
 import Login from './components/User/Login.vue';
-import Index from './components/Index.vue'
+import CompanyCreate from './components/Company/Create.vue';
+import CompanySelect from './components/Company/Select.vue';
 
 Vue.use(VueRouter);
 
@@ -25,10 +27,11 @@ const router = new VueRouter({
     routes: [
         {
             path: '/login',
-            name: 'Login',
+            name: 'login',
             component: Login,
             meta: {
-              requiresAuth: false
+              requiresAuth: false,
+              requiresCompany: false,
             }
         },
         {
@@ -36,13 +39,28 @@ const router = new VueRouter({
             name: 'Home',
             component: Index,
             meta: {
-              requiresAuth: true
+              requiresAuth: true,
+              requiresCompany: true
             }
         },
-        // {
-        //     path: '/home',
-        //     redirect: '/'
-        // },
+        {
+          path: '/company/create',
+          name: 'company.create',
+          component: CompanyCreate,
+          meta: {
+            requiresAuth: true,
+            requiresCompany: false
+          }
+        },
+        {
+          path: '/company/select',
+          name: 'company.select',
+          component: CompanySelect,
+          meta: {
+            requiresAuth: true,
+            requiresCompany: false
+          }
+        }
     ],
 });
 
@@ -61,19 +79,26 @@ const app = new Vue({
           console.log(t.adv);
         }).then(function() {
           if(t.adv.auth.check == false)
-            t.$router.push('/login').catch((e)=>{
+          {
+            t.$router.push({name: 'login'}).catch((e)=>{
               // console.log(e)
             });
+          } else if(t.adv.company == null && (t.$route.path != '/company/select' && t.$route.name != '/company/create')) {
+            t.$router.push({path: 'company/create'});
+          } else {
 
-
-          router.beforeEach((to, from, next) => {
-            console.log('page changed');
-            if(t.adv && t.adv.auth.check == false && to.name != 'Login')
-              next({path: '/login'});
-            else
-              next();
-          });
-
+          }
+        });
+        router.beforeEach((to, from, next) => {
+          console.log('page changed', to.path);
+          if(t.adv && t.adv.auth.check == false && to.name != 'login')
+            next({path: '/login'});
+          else if(t.adv && t.adv.auth.check == true && t.adv.company == null && (to.path != '/company/select' && to.path != '/company/create'))
+          {
+            next({path: '/company/create'});
+          } else {
+            next();
+          }
         }); 
     },
     mounted() {
