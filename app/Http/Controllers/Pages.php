@@ -12,7 +12,7 @@ class Pages extends Controller
             return view('login');
         if(Auth::user()->companies->count() == 0)
             return view('companies.create');
-        if(Auth::user()->company())
+        if(!Auth::user()->company)
             return view('companies.select');
         return view('page');
     }

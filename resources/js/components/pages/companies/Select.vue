@@ -9,6 +9,10 @@
                         <div class="btn btn-primary btn-block" v-for="firma in firme" :key="firma.id" v-on:click="selectCompany(firma.id)">
                             {{firma.denumire}}
                         </div>
+                        <hr>
+                        <div class="text-center">
+                            Pentru a iti crea o noua firma apasa <router-link to="/company/create">aici</router-link>.
+                        </div>
                     </div>
                 </div>
             </div>

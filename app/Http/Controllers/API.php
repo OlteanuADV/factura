@@ -13,6 +13,7 @@ class API extends Controller
             'auth' => [
                 'check' => Auth::check(),
                 'user' => Auth::user(),
+                'company' => Auth::check() ? Auth::user()->company : null
             ],
             '_token' => csrf_token(),
             'url' => url('/'),
@@ -27,8 +28,8 @@ class API extends Controller
 		$data = json_decode($data);
       
         $user = User::where('email', $data->email)->first();
-
-        if(!$user)
+        
+        if(is_null($user))
         {
             $user = new User;
             $user->name = $data->given_name;

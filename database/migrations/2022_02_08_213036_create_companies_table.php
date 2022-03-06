@@ -18,8 +18,8 @@ class CreateCompaniesTable extends Migration
             $table->string('cui');
             $table->string('adresa');
             $table->string('denumire');
-            $table->string('nrRegCom');
-            $table->string('stare_inregistrare');
+            $table->string('nrRegCom')->nullable();
+            $table->string('stare_inregistrare')->nullable();
             $table->string('scpTVA');
             $table->foreignID('owner')->constrained('users');
             $table->timestamps();

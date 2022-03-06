@@ -22,18 +22,19 @@ const router = new VueRouter({
         {
             path: '/',
             name: 'Home',
-            component: Index
+            component: Index,
+            alias: "Acasa"
         },
         {
             path: '/company/create',
             name: 'CreateCompany',
-            component: require('./components/pages/companies/Create.vue')
+            component: require('./components/pages/companies/Create.vue').default
         }
         ,
         {
             path: '/company/select',
             name: 'SelectCompany',
-            component: require('./components/pages/companies/Select.vue')
+            component: require('./components/pages/companies/Select.vue').default
         }
     ],
 });

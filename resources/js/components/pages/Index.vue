@@ -1,5 +1,5 @@
 <template>
     <div>
-        textsd
+        Nuj exact ce ne mai gandim charturi cv
     </div>
 </template>

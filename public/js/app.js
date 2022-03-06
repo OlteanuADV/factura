@@ -2284,6 +2284,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2374,15 +2378,16 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
   routes: [{
     path: '/',
     name: 'Home',
-    component: _components_pages_Index__WEBPACK_IMPORTED_MODULE_1__["default"]
+    component: _components_pages_Index__WEBPACK_IMPORTED_MODULE_1__["default"],
+    alias: "Acasa"
   }, {
     path: '/company/create',
     name: 'CreateCompany',
-    component: __webpack_require__(/*! ./components/pages/companies/Create.vue */ "./resources/js/components/pages/companies/Create.vue")
+    component: (__webpack_require__(/*! ./components/pages/companies/Create.vue */ "./resources/js/components/pages/companies/Create.vue")["default"])
   }, {
     path: '/company/select',
     name: 'SelectCompany',
-    component: __webpack_require__(/*! ./components/pages/companies/Select.vue */ "./resources/js/components/pages/companies/Select.vue")
+    component: (__webpack_require__(/*! ./components/pages/companies/Select.vue */ "./resources/js/components/pages/companies/Select.vue")["default"])
   }]
 });
 var app = new vue__WEBPACK_IMPORTED_MODULE_2__["default"]({
@@ -3763,12 +3768,18 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm.$route.name == "login" ||
-    _vm.$route.name == "register" ||
-    _vm.$route.name == "company.create" ||
-    _vm.$route.name == "company.select"
-      ? _c("div", { staticClass: "register-page" }, [_c("router-view")], 1)
-      : _c("div", { staticClass: "wrapper" }, [
+    _vm.$route.path == "/company/create" || _vm.$route.path == "/company/select"
+      ? _c("div", { staticClass: "register-page" }, [
+          _vm.$route.path == "/company/create"
+            ? _c("div", [_c("app-company-create")], 1)
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.$route.path == "/company/select"
+            ? _c("div", [_c("app-company-select")], 1)
+            : _vm._e(),
+        ])
+      : _vm.$root.$data.adv.auth !== undefined
+      ? _c("div", { staticClass: "wrapper" }, [
           _c(
             "nav",
             {
@@ -3807,7 +3818,7 @@ var render = function () {
                     },
                     [
                       _vm._v(
-                        "\n                        Deconecteaza-te\n                    "
+                        "\n               Deconecteaza-te\n               "
                       ),
                     ]
                   ),
@@ -3835,9 +3846,9 @@ var render = function () {
                 [
                   _c("span", { staticClass: "brand-text font-weight-light" }, [
                     _vm._v(
-                      "\n                    " +
+                      "\n            " +
                         _vm._s(_vm.$root.$data.adv.name) +
-                        "\n                "
+                        "\n            "
                     ),
                   ]),
                 ]
@@ -3888,12 +3899,33 @@ var render = function () {
                               _vm._v(" "),
                               _c("p", [
                                 _vm._v(
-                                  "\n                            Acasa\n                            "
+                                  "\n                           Acasa\n                        "
                                 ),
-                                _c(
-                                  "span",
-                                  { staticClass: "right badge badge-danger" },
-                                  [_vm._v("New")]
+                              ]),
+                            ]
+                          ),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "li",
+                        { staticClass: "nav-item" },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "nav-link",
+                              attrs: { to: "/company/select" },
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "nav-icon fa fa-building",
+                              }),
+                              _vm._v(" "),
+                              _c("p", [
+                                _vm._v(
+                                  "\n                           Selecteaza firma\n                        "
                                 ),
                               ]),
                             ]
@@ -3909,7 +3941,17 @@ var render = function () {
           ),
           _vm._v(" "),
           _c("div", { staticClass: "content-wrapper" }, [
-            _vm._m(7),
+            _c("div", { staticClass: "content-header" }, [
+              _c("div", { staticClass: "container-fluid" }, [
+                _c("div", { staticClass: "row mb-2" }, [
+                  _c("div", { staticClass: "col-sm-6" }, [
+                    _c("h1", { staticClass: "m-0" }, [
+                      _vm._v(_vm._s(_vm.$root.$data.adv.auth.company.denumire)),
+                    ]),
+                  ]),
+                ]),
+              ]),
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "content" }, [
               _c(
@@ -3921,10 +3963,11 @@ var render = function () {
             ]),
           ]),
           _vm._v(" "),
-          _vm._m(8),
+          _vm._m(7),
           _vm._v(" "),
-          _vm._m(9),
-        ]),
+          _vm._m(8),
+        ])
+      : _vm._e(),
   ])
 }
 var staticRenderFns = [
@@ -4027,7 +4070,7 @@ var staticRenderFns = [
               _c("div", { staticClass: "media-body" }, [
                 _c("h3", { staticClass: "dropdown-item-title" }, [
                   _vm._v(
-                    "\n                            Brad Diesel\n                            "
+                    "\n                              Brad Diesel\n                              "
                   ),
                   _c(
                     "span",
@@ -4063,7 +4106,7 @@ var staticRenderFns = [
               _c("div", { staticClass: "media-body" }, [
                 _c("h3", { staticClass: "dropdown-item-title" }, [
                   _vm._v(
-                    "\n                            John Pierce\n                            "
+                    "\n                              John Pierce\n                              "
                   ),
                   _c(
                     "span",
@@ -4099,7 +4142,7 @@ var staticRenderFns = [
               _c("div", { staticClass: "media-body" }, [
                 _c("h3", { staticClass: "dropdown-item-title" }, [
                   _vm._v(
-                    "\n                            Nora Silvester\n                            "
+                    "\n                              Nora Silvester\n                              "
                   ),
                   _c(
                     "span",
@@ -4166,7 +4209,7 @@ var staticRenderFns = [
           _vm._v(" "),
           _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
             _c("i", { staticClass: "fas fa-envelope mr-2" }),
-            _vm._v(" 4 new messages\n                            "),
+            _vm._v(" 4 new messages\n                  "),
             _c("span", { staticClass: "float-right text-muted text-sm" }, [
               _vm._v("3 mins"),
             ]),
@@ -4176,7 +4219,7 @@ var staticRenderFns = [
           _vm._v(" "),
           _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
             _c("i", { staticClass: "fas fa-users mr-2" }),
-            _vm._v(" 8 friend requests\n                            "),
+            _vm._v(" 8 friend requests\n                  "),
             _c("span", { staticClass: "float-right text-muted text-sm" }, [
               _vm._v("12 hours"),
             ]),
@@ -4186,7 +4229,7 @@ var staticRenderFns = [
           _vm._v(" "),
           _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
             _c("i", { staticClass: "fas fa-file mr-2" }),
-            _vm._v(" 3 new reports\n                            "),
+            _vm._v(" 3 new reports\n                  "),
             _c("span", { staticClass: "float-right text-muted text-sm" }, [
               _vm._v("2 days"),
             ]),
@@ -4275,32 +4318,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "content-header" }, [
-      _c("div", { staticClass: "container-fluid" }, [
-        _c("div", { staticClass: "row mb-2" }, [
-          _c("div", { staticClass: "col-sm-6" }, [
-            _c("h1", { staticClass: "m-0" }, [_vm._v("Starter Page")]),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-sm-6" }, [
-            _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
-              _c("li", { staticClass: "breadcrumb-item" }, [
-                _c("a", { attrs: { href: "#" } }, [_vm._v("Home")]),
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "breadcrumb-item active" }, [
-                _vm._v("Starter Page"),
-              ]),
-            ]),
-          ]),
-        ]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c(
       "aside",
       { staticClass: "control-sidebar control-sidebar-dark" },
@@ -4319,7 +4336,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("footer", { staticClass: "main-footer" }, [
       _c("div", { staticClass: "float-right d-none d-sm-inline" }, [
-        _vm._v("\n            Anything you want\n            "),
+        _vm._v("\n            Anything you want\n         "),
       ]),
       _vm._v(" "),
       _c("strong", [
@@ -4329,7 +4346,7 @@ var staticRenderFns = [
         ]),
         _vm._v("."),
       ]),
-      _vm._v(" All rights reserved.\n        "),
+      _vm._v(" All rights reserved.\n      "),
     ])
   },
 ]
@@ -4355,7 +4372,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n    textsd\n")])
+  return _c("div", [_vm._v("\n    Nuj exact ce ne mai gandim charturi cv\n")])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -4693,28 +4710,47 @@ var render = function () {
           _c(
             "div",
             { staticClass: "col-12" },
-            _vm._l(_vm.firme, function (firma) {
-              return _c(
-                "div",
-                {
-                  key: firma.id,
-                  staticClass: "btn btn-primary btn-block",
-                  on: {
-                    click: function ($event) {
-                      return _vm.selectCompany(firma.id)
+            [
+              _vm._l(_vm.firme, function (firma) {
+                return _c(
+                  "div",
+                  {
+                    key: firma.id,
+                    staticClass: "btn btn-primary btn-block",
+                    on: {
+                      click: function ($event) {
+                        return _vm.selectCompany(firma.id)
+                      },
                     },
                   },
-                },
+                  [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(firma.denumire) +
+                        "\n                    "
+                    ),
+                  ]
+                )
+              }),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "text-center" },
                 [
                   _vm._v(
-                    "\n                        " +
-                      _vm._s(firma.denumire) +
-                      "\n                    "
+                    "\n                        Pentru a iti crea o noua firma apasa "
                   ),
-                ]
-              )
-            }),
-            0
+                  _c("router-link", { attrs: { to: "/company/create" } }, [
+                    _vm._v("aici"),
+                  ]),
+                  _vm._v(".\n                    "),
+                ],
+                1
+              ),
+            ],
+            2
           ),
         ]),
       ]),
