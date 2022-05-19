@@ -9,15 +9,6 @@ class Settings extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'firstname',
-        'lastname',
-        'email',
-        'password',
-    ];
-    
-    public $timestamps = true;
-
     public static function mySeapSubscriptions() {
         // get my cpv subscriptions
         $array = [];
@@ -60,5 +51,34 @@ class Settings extends Model
         }
 
         return $found;
+    }
+
+    public static function searchANAF($cui)
+    {
+        $url_firma = 'https://webservicesp.anaf.ro/PlatitorTvaRest/api/v6/ws/tva';
+
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => $url_firma,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 60,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => json_encode([
+                [
+                    "cui" => $cui,
+                    "data" => date('Y-m-d')
+                ]
+            ]),
+            CURLOPT_HTTPHEADER => [
+                "Cache-Control: no-cache",
+                "Content-Type: application/json"
+            ]
+        ]);
+
+        $response = json_decode(curl_exec($curl));
+
+        curl_close($curl);
+        
+        return $response;
     }
 }

@@ -177,6 +177,30 @@
                            </p>
                         </router-link>
                      </li>
+                     <li class="nav-item">
+                        <router-link to="/invoices/create" class="nav-link">
+                           <i class="nav-icon fa fa-file"></i>
+                           <p>
+                              Creaza factura
+                           </p>
+                        </router-link>
+                     </li>
+                     <li class="nav-item">
+                        <router-link to="/seap" class="nav-link">
+                           <i class="nav-icon fa fa-gavel"></i>
+                           <p>
+                              SEAP
+                           </p>
+                        </router-link>
+                     </li>
+                     <li class="nav-item">
+                        <router-link to="/email" class="nav-link">
+                           <i class="nav-icon fa fa-envelope"></i>
+                           <p>
+                              E-mail
+                           </p>
+                        </router-link>
+                     </li>
                   </ul>
                </nav>
                <!-- /.sidebar-menu -->

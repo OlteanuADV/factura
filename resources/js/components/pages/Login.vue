@@ -6,7 +6,8 @@
                 <p class="login-box-msg">Conectati-va folosind contul de Google.</p>
                 <div class="row">
                     <div class="col-12">
-                        <button type="submit" class="btn btn-danger btn-block"  v-on:click="onSignIn()"> <i class="fab fa-google-plus-g"></i> Conecteaza-te! </button>
+                        <button type="submit" class="btn btn-danger btn-block"  v-on:click="googleLogin()"> <i class="fab fa-google-plus-g"></i> Conecteaza-te cu Google! </button>
+                        <button type="submit" class="btn btn-primary btn-block"  v-on:click="facebookLogin()"> <i class="fab fa-facebook"></i> Conecteaza-te cu Facebook! </button>
                     </div>
                 </div>
             </div>
@@ -28,11 +29,12 @@ export default {
         
     },
     methods: {
-        onSignIn: function(googleUser) {
+        googleLogin: function(googleUser) 
+        {
             let t = this;
             gapi.load('auth2', function() {
                 gapi.auth2.init({
-                    client_id: "1072148777461-0sftuatjavl03oq9dqptji0qifc2flrc.apps.googleusercontent.com",
+                    client_id: t.$root.$data.adv.google,
                 }).then(function(auth2) {
                     console.log( "signed in: " + auth2.isSignedIn.get() );
                     auth2.signIn();
@@ -40,7 +42,7 @@ export default {
                         if (googleUser) {
                             var id_token = googleUser.getAuthResponse().id_token;
 
-                            axios.get( t.$root.$data.adv.url + '/api/checkLoginGoogle/'+id_token).then(async function (response) {
+                            axios.get( t.$root.$data.adv.url + '/api/login/google/'+id_token).then(async function (response) {
                                 window.location =  t.$root.$data.adv.url;
                             });
                         }
@@ -48,6 +50,21 @@ export default {
                 });
             });
         },
+        facebookLogin: function()
+        {
+            let t = this;
+            FB.login(function(response) {
+                if(response.status === "connected")
+                {
+                    console.log(response.authResponse);
+                    let id_token = response.authResponse.accessToken;
+                    axios.get( t.$root.$data.adv.url + '/api/login/facebook/'+id_token).then(async function (response) {
+                        console.log(response.data);
+                        window.location =  t.$root.$data.adv.url;
+                    });
+                }
+            }, {scope: 'public_profile,email,user_birthday,user_gender'});
+        }
     }
 }
 </script>

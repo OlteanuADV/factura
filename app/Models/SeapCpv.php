@@ -5,13 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Companies extends Model
+class SeapCpv extends Model
 {
     use HasFactory;
 
-    //get clients
-    public function clients()
-    {
-        return $this->hasMany('App\Models\Clients', 'company_id');
+    public function company () {
+        return $this->belongsTo('App\Models\Company');
     }
 }

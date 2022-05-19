@@ -38,4 +38,9 @@ class User extends Authenticatable
     public function company() {
         return $this->hasOne('App\Models\Companies', 'id', 'last_company');
     }
+
+    public function getCompaniesIdsAttribute()
+    {
+        return $this->companies()->pluck('id')->toArray();
+    }
 }

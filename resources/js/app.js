@@ -29,13 +29,27 @@ const router = new VueRouter({
             path: '/company/create',
             name: 'CreateCompany',
             component: require('./components/pages/companies/Create.vue').default
-        }
-        ,
+        },
         {
             path: '/company/select',
             name: 'SelectCompany',
             component: require('./components/pages/companies/Select.vue').default
-        }
+        },
+        {
+            path: '/invoices/create',
+            name: 'CreateInvoice',
+            component: require('./components/pages/invoices/Create.vue').default
+        },
+        {
+            path: '/seap',
+            name: 'Seap',
+            component: require('./components/pages/seap/Index.vue').default
+        },
+        {
+            path: '/email',
+            name: 'Email',
+            component: require('./components/pages/email/Index.vue').default
+        },
     ],
 });
 
@@ -50,7 +64,7 @@ const app = new Vue({
         t.getAPIData();
     },
     mounted() {
-
+        
     },
     watch: {
         adv: {
@@ -76,6 +90,7 @@ const app = new Vue({
           let t = this;
           await axios.get(_PAGE_URL + '/api').then(function(response) {
             t.adv = response.data;
+            axios.defaults.baseURL = response.data.url;
           });
           return t.adv;
         }

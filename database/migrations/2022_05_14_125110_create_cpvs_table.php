@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClients extends Migration
+class CreateCpvsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateClients extends Migration
      */
     public function up()
     {
-        Schema::create('clients', function (Blueprint $table) {
+        Schema::create('seap_cpvs', function (Blueprint $table) {
             $table->id();
-            $table->string('cif');
-            $table->string('name');
-            $table->string('social_address');
-            $table->string('address');
-            $table->string('phone')->nullable();
-            $table->string('delegat');
+            $table->string('text');
+            $table->integer('code');
             $table->unsignedBigInteger('company_id')->nullable();
             $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamps();
@@ -34,6 +30,6 @@ class CreateClients extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clients');
+        Schema::dropIfExists('cpvs');
     }
 }

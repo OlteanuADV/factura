@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Settings;
 
 class ANAF extends Controller
 {
@@ -19,27 +20,7 @@ class ANAF extends Controller
         $firma = [];
 
         //extragere informatii despre firma
-        $curl = curl_init();
-        curl_setopt_array($curl, [
-            CURLOPT_URL => $this->url_firma,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_TIMEOUT => 60,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => json_encode([
-                [
-                    "cui" => $cui,
-                    "data" => date('Y-m-d')
-                ]
-            ]),
-            CURLOPT_HTTPHEADER => [
-                "Cache-Control: no-cache",
-                "Content-Type: application/json"
-            ]
-        ]);
-
-        $response = json_decode(curl_exec($curl));
-
-        curl_close($curl);
+        $response = Settings::searchANAF($cui);
 
         if($response)
         $firma['date'] = $response->found[0];
