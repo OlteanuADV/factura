@@ -86,7 +86,7 @@ export default {
             event.preventDefault();
             let t = this;
 
-            axios.post( t.$root.$data.adv.url + '/api/clients/add', {
+            axios.post( t.$root.$data.adv.url + '/api/client/add', {
                 client: t.client
             }).then(async function (response) {
                 let data = response.data;

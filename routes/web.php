@@ -6,6 +6,7 @@ use App\Http\Controllers\Pages;
 use App\Http\Controllers\API;
 use App\Http\Controllers\ANAF;
 use App\Http\Controllers\SEAP;
+use App\Http\Controllers\Email;
 
 
 Route::prefix('/api')->group(function() { // middleware('OnlyJSON')->
@@ -24,6 +25,10 @@ Route::prefix('/api')->group(function() { // middleware('OnlyJSON')->
         Route::get('/words/my', [SEAP::class, 'getMyWords']);
         Route::post('/words/add', [SEAP::class, 'addWord']);
         Route::get('/announces/my', [SEAP::class, 'getMyAnnounces']);
+    });
+
+    Route::prefix('/email')->group(function() {
+        Route::get('/', [Email::class, 'index']);
     });
 
     Route::prefix('/company')->group(function() {

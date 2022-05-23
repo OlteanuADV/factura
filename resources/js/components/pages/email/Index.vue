@@ -61,39 +61,10 @@
                   </div>
                </div>
                <div class="card-body p-0">
-                  <div class="mailbox-controls">
-                     <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i>
-                     </button>
-                     <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-sm">
-                        <i class="far fa-trash-alt"></i>
-                        </button>
-                        <button type="button" class="btn btn-default btn-sm">
-                        <i class="fas fa-reply"></i>
-                        </button>
-                        <button type="button" class="btn btn-default btn-sm">
-                        <i class="fas fa-share"></i>
-                        </button>
-                     </div>
-                     <button type="button" class="btn btn-default btn-sm">
-                     <i class="fas fa-sync-alt"></i>
-                     </button>
-                     <div class="float-right">
-                        1-50/200
-                        <div class="btn-group">
-                           <button type="button" class="btn btn-default btn-sm">
-                           <i class="fas fa-chevron-left"></i>
-                           </button>
-                           <button type="button" class="btn btn-default btn-sm">
-                           <i class="fas fa-chevron-right"></i>
-                           </button>
-                        </div>
-                     </div>
-                  </div>
                   <div class="table-responsive mailbox-messages">
                      <table class="table table-hover table-striped">
                         <tbody>
-                           <tr>
+                           <tr v-for="email in emails" :key="email.uid">
                               <td>
                                  <div class="icheck-primary">
                                     <input type="checkbox" value="" id="check1">
@@ -101,10 +72,10 @@
                                  </div>
                               </td>
                               <td class="mailbox-star"><a href="#"><i class="fas fa-star text-warning"></i></a></td>
-                              <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
-                              <td class="mailbox-subject"><b>AdminLTE 3.0 Issue</b> - Trying to find a solution to this problem...</td>
+                              <td class="mailbox-name"><a href="read-mail.html">{{email.from}}</a></td>
+                              <td class="mailbox-subject">{{email.title}}</td>
                               <td class="mailbox-attachment"></td>
-                              <td class="mailbox-date">5 mins ago</td>
+                              <td class="mailbox-date">{{timeAgo(email.date)}}</td>
                            </tr>
                         </tbody>    
                      </table>
@@ -147,3 +118,57 @@
       </div>
    </div>
 </template>
+
+
+<script>
+export default {
+   data: () => ({
+      emails: []
+   }),
+   created(){
+   },
+   mounted(){
+      this.loadEmails();
+   },
+   watch: {
+        
+   },
+   methods: {
+      loadEmails: function() {
+         let t = this;
+         axios.get('/api/email').then(response => {
+            t.emails = response.data;
+         })
+      },
+      timeAgo: function(date) {
+         date = new Date(date);
+         var seconds = Math.floor((new Date() - date) / 1000);
+
+         var interval = seconds / 31536000;
+
+         if (interval > 1) {
+            return Math.floor(interval) + " years";
+         }
+         interval = seconds / 2592000;
+         if (interval > 1) {
+            return Math.floor(interval) + " months";
+         }
+         interval = seconds / 86400;
+         if (interval > 1) {
+            return Math.floor(interval) + " days";
+         }
+         interval = seconds / 3600;
+         if (interval > 1) {
+            return Math.floor(interval) + " hours";
+         }
+         interval = seconds / 60;
+         if (interval > 1) {
+            return Math.floor(interval) + " minutes";
+         }
+         if(!seconds || isNaN(seconds))
+            return 'none';
+         return Math.floor(seconds) + " seconds";
+      }
+   }
+}
+</script>
